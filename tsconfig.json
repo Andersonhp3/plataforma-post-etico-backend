@@ -11,6 +11,7 @@
     "outDir": "./dist"
   },
   "include": [
+    "src", "types",
   "src/**/*",
   "src/types/**/*" // Certifique-se de incluir a pasta onde você criou o arquivo .d.ts
 ],

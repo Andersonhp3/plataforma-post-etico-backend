@@ -24,7 +24,7 @@ export default async function postsRoutes(server: FastifyInstance) {
 
   // Rota protegida - listagem de posts do usuário
   server.get('/posts', { preValidation: [authenticate] }, async (request) => {
-    const userId = request.user.id;
+    const userId = (request.user as { id: number }).id;
     const { rows } = await server.pg.query(
       `SELECT * FROM posts WHERE usuario_id = $1 ORDER BY criado_em DESC`,
       [userId]

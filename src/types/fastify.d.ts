@@ -1,17 +1,9 @@
-import '@fastify/jwt';
-import { FastifyRequest, FastifyReply } from 'fastify';
+import 'fastify'
+import { FastifyJWT } from '@fastify/jwt'
 
 declare module 'fastify' {
-  interface FastifyInstance {
-    authenticate: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+  interface FastifyRequest {
+    user: FastifyJWT['user']  // <- Aqui você está dizendo para o TypeScript: "vai ter user sim!"
   }
 }
 
-declare module '@fastify/jwt' {
-  interface FastifyJWT {
-    user: {
-      id: number;
-      email: string;
-    };
-  }
-}

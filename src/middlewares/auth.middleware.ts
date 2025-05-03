@@ -1,18 +1,13 @@
-// import { FastifyRequest, FastifyReply } from 'fastify';
-
-// export async function verificarToken(request: FastifyRequest, reply: FastifyReply) {
-//   try {
-//     await request.jwtVerify<{ id: number; email: string }>(); // Tipo explícito
-//   } catch (err) {
-//     reply.status(401).send({ error: 'Token inválido' });
-//   }
-// }
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyJWT } from '@fastify/jwt';
 
-export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
+type AuthenticatedRequest = FastifyRequest & { user: FastifyJWT['user'] };
+
+export async function authenticated(request: AuthenticatedRequest, reply: FastifyReply) {
   try {
-    await request.jwtVerify();
+      await request.jwtVerify(); // Note the correct method name is jwtVerify, not jwtverify
+      // request.user will now be available with proper typing
   } catch (err) {
-    reply.code(401).send({ erro: 'Token inválido ou ausente' });
+      reply.status(401).send({ error: 'Token inválido ou ausente' });
   }
 }

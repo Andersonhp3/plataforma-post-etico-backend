@@ -26,7 +26,7 @@ async function buildServer() {
   // 3) JWT – para autenticação
   await server.register(fastifyJwt, {
     secret: process.env.JWT_SECRET as string,
-  })
+  });
 
   // 4) Decorator para extrair o user do token
   server.decorate(
